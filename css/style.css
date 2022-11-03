@@ -35,11 +35,12 @@ body {
 }
 .todo {
   width: 90%;
-  height: 50vh;
+  height: 85%;
   color: white;
   font-size: 18px;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 .add_button {
   margin-top: 10px;
@@ -66,7 +67,7 @@ body {
   border-bottom: 1px silver solid;
 }
 .form_input_add:focus,
-.form_input_add:active,
+.fo m_input_add:active,
 .form_input_add:hover {
   font-size: 18px;
   color: white;
@@ -113,6 +114,8 @@ body {
 /*  */
 .note {
   width: 100%;
+  margin-top: 10px;
+  border-bottom: 1px white solid;
 }
 .note_header {
   display: flex;
@@ -129,13 +132,16 @@ body {
   width: 24px;
   height: 24px;
 }
+#note_text {
+  margin-bottom: 10px;
+}
 #note_text_input,
 #note_title_input {
   background: #244852;
   color: white;
   border: none;
   font-family: "Ubuntu";
-  font-size: 24px;
+  font-size: 16px;
 }
 @font-face {
   font-family: Ubuntu;
