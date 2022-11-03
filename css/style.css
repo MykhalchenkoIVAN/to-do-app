@@ -28,7 +28,7 @@ body {
   color: white;
 }
 .header_list {
-  width: 100%;
+  width: 90%;
   height: 10vh;
   display: flex;
   align-items: center;
@@ -47,6 +47,10 @@ body {
   border: none;
   color: white;
   font-size: 18px;
+}
+.add_button img {
+  width: 36px;
+  height: 36px;
 }
 .add_to_do_form {
   width: 90%;
