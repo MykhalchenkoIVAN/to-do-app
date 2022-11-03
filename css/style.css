@@ -8,6 +8,9 @@ body {
   margin: 0 auto;
   background: transparent;
 }
+textarea {
+  overflow: visible;
+}
 .display_none {
   display: none;
 }
@@ -142,6 +145,7 @@ body {
   border: none;
   font-family: "Ubuntu";
   font-size: 16px;
+  min-height: 18px;
 }
 @font-face {
   font-family: Ubuntu;
