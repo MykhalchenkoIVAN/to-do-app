@@ -2,41 +2,18 @@
 
 let addToDo = document.getElementById('add_to_do');
 let listToDo = document.getElementById('list_to_do');
-const toDoList = document.querySelector('.todo')
-const addButton = document.querySelector('.add_button');
-console.log(addButton);
+const toDoList = document.querySelectorAll('.todo')
+const addButton = document.querySelectorAll('.add_button');
 
-// addToDo.onclick = function () {
-//     listToDo.classList.add('z_index');
-//     addToDo.classList.remove('z_index');
-// }
-// listToDo.onclick = function () {
-//     listToDo.classList.remove('z_index');
-//     addToDo.classList.add('z_index');
-// }
+addToDo.onclick = function () {
+    listToDo.classList.add('z_index');
+    addToDo.classList.remove('z_index');
+}
+listToDo.onclick = function () {
+    listToDo.classList.remove('z_index');
+    addToDo.classList.add('z_index');
+}
 
-// for (let i = 0; i < addButton.length; i++) {
-//     addButton[i].addEventListener('click', function () {
-//         console.log(addButton[i].id);
-//         console.log(inputAdd1.id);
-
-//         if (addButton[i].id == "add_btn1") {
-//             console.log("натиснуто 1");
-//             let toDoAdd1 = document.getElementById('input_add1').value;
-//             document.querySelector(".todo1").textContent = toDoAdd1;
-//             document.getElementById('input_add1').value = "";
-
-//         } else if
-//             (addButton[i].id == "add_btn2") {
-//             console.log("натиснуто 2");
-//             let toDoAdd2 = document.getElementById('input_add2').value;
-//             document.querySelector(".todo2").textContent = toDoAdd2;
-//             document.getElementById('input_add2').value = "";
-//             console.log(typeof toDoAdd);
-//         }
-
-//     })
-// }
 function createNote(title, text) {
     const noteElement = document.createElement('div');
     noteElement.classList.add('note');
@@ -82,8 +59,16 @@ function createNote(title, text) {
     return noteElement;
 }
 
-addButton.addEventListener('click', (e) => {
-    const element = createNote("Заголовок", "Ваш текст");
-    toDoList.appendChild(element);
+for (let i = 0; i < addButton.length; i++) {
+    addButton[i].addEventListener('click', (e) => {
+        const element = createNote("Заголовок", "Ваш текст");
 
-})
+        if (addButton[i].id === "add_button_0") {
+            toDoList[i].appendChild(element);
+
+        } else if (addButton[i].id === "add_button_1") {
+            toDoList[i].appendChild(element);
+        }
+
+    })
+}
