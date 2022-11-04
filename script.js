@@ -6,7 +6,7 @@ const toDoList = document.querySelectorAll('.todo')
 const addButton = document.querySelectorAll('.add_button');
 const container = document.querySelector('.container');
 
-
+let idButton = 10;
 // Preloader function
 const preloaderFunction = window.onload = function () {
     let preloader = document.getElementById("preloader");
@@ -40,8 +40,15 @@ listToDo.onclick = function () {
 
 function createNote(title, text) {
     const noteElement = document.createElement('div');
+
+
+
+
     noteElement.classList.add('note');
     noteElement.innerHTML = `
+    <button class="add_button_note add_button" id="add_button_${idButton}">
+    <img src="img/icon_plus.png" alt="" />
+  </button>
     <div class="note_header">
         <p id="note_title">${title}</p>
         <textarea id="note_title_input" class="hidden">${title}</textarea>
@@ -54,6 +61,7 @@ function createNote(title, text) {
     </div >
     <p id="note_text">${text}</p>
     <textarea id="note_text_input" class="hidden textarea_text">${text}</textarea>
+
     `
     const editBtn = noteElement.querySelector('.note_edit');
     const deleteBtn = noteElement.querySelector('.note_delete');
@@ -61,9 +69,28 @@ function createNote(title, text) {
     const textElement = noteElement.querySelector('#note_text');
     const titleInputElement = noteElement.querySelector('#note_title_input');
     const textInputElement = noteElement.querySelector('#note_text_input');
+    let addButtonNote = noteElement.querySelector('.add_button_note');
+
+
+    addButtonNote.onclick = function () {
+        const element = createNote("Заголовок", "Ваш текст", idButton);
+        for (let i = 0; i < toDoList.length; i++) {
+            let idButtonClass = idButton - 1;
+            toDoList[i].appendChild(element);
+            if (idButtonClass >= 10) {
+                addButtonNote.classList.add('display_none');
+            }
+
+            console.log(idButtonClass);
+        }
+        idButton = idButton + 1;
 
 
 
+    }
+
+
+    // Function button edit notes
     editBtn.addEventListener('click', (e) => {
         const textarea = document.querySelector('.textarea_text');
         titleElement.classList.toggle('hidden');
@@ -81,6 +108,7 @@ function createNote(title, text) {
         console.log(textarea);
 
     });
+    // Function delete notes
     deleteBtn.addEventListener('click', (e) => {
         noteElement.remove();
     });
@@ -97,18 +125,21 @@ function createNote(title, text) {
 }
 
 for (let i = 0; i < addButton.length; i++) {
-    addButton[i].addEventListener('click', (e) => {
-        const element = createNote("Заголовок", "Ваш текст");
 
+    addButton[i].addEventListener('click', (e) => {
+        const element = createNote("Заголовок", "Ваш текст", idButton);
         if (addButton[i].id === "add_button_0") {
             toDoList[i].appendChild(element);
 
         } else if (addButton[i].id === "add_button_1") {
             toDoList[i].appendChild(element);
+            addButton[i].classList.add('display_none');
+            idButton = idButton + 1;
+            console.log(idButton);
+
         }
 
 
     })
-}
-
+};
 

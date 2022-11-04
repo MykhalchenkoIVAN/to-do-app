@@ -34,7 +34,7 @@ textarea {
   justify-content: center;
   height: 100%;
   width: 100%;
-  z-index: 1;
+  z-index: -1;
 }
 .shapes-1 {
   width: 50px;
@@ -75,11 +75,11 @@ textarea {
   color: white;
   font-size: 18px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   overflow: auto;
 }
 .add_button {
-  margin-top: 10px;
+  margin-top: 6px;
   background-color: transparent;
   border: none;
   color: white;
@@ -151,7 +151,6 @@ textarea {
 .note {
   width: 100%;
   margin-top: 10px;
-  border-bottom: 1px white solid;
 }
 .note_header {
   display: flex;
@@ -187,6 +186,9 @@ textarea {
 }
 #note_text_input {
   width: 100%;
+}
+#note_text {
+  border-bottom: 1px white solid;
 }
 @font-face {
   font-family: Ubuntu;
