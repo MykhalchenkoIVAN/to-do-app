@@ -7,6 +7,8 @@ body {
   max-height: 915px;
   margin: 0 auto;
   background: transparent;
+  display: flex;
+  justify-content: center;
 }
 textarea {
   overflow: visible;
