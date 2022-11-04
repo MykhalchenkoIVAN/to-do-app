@@ -4,7 +4,19 @@ let addToDo = document.getElementById('add_to_do');
 let listToDo = document.getElementById('list_to_do');
 const toDoList = document.querySelectorAll('.todo')
 const addButton = document.querySelectorAll('.add_button');
+const container = document.querySelector('.container');
 
+
+// Preloader function
+const preloaderFunction = window.onload = function () {
+    let preloader = document.getElementById("preloader");
+    const func = () => {
+        container.classList.remove('display_none');
+    };
+    setTimeout(func, 3 * 1000);
+
+
+};
 
 
 addToDo.onclick = function () {

@@ -24,6 +24,37 @@ textarea {
 .hidden {
   display: none;
 }
+/* Preloader start  */
+.preloader {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+.shapes-1 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #1b434d;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  animation: sh1 2s infinite cubic-bezier(0.3, 1, 0, 1);
+}
+@keyframes sh1 {
+  33% {
+    border-radius: 0;
+    background: #c4f54e;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  66% {
+    border-radius: 0;
+    background: #2c5c3b;
+    clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%);
+  }
+}
+/* Preloader end */
 /* Start add to do list */
 .title_todo {
   font-family: "Ubuntu";
@@ -70,7 +101,7 @@ textarea {
   border-bottom: 1px silver solid;
 }
 .form_input_add:focus,
-.fo m_input_add:active,
+.form_input_add:active,
 .form_input_add:hover {
   font-size: 18px;
   color: white;
@@ -124,6 +155,11 @@ textarea {
   display: flex;
   justify-content: space-between;
 }
+#note_title {
+  max-width: 70%;
+  word-wrap: break-word;
+  font-size: 20px;
+}
 .note_edit,
 .note_delete {
   background-color: transparent;
@@ -146,6 +182,9 @@ textarea {
   font-family: "Ubuntu";
   font-size: 16px;
   min-height: 18px;
+}
+#note_text_input {
+  width: 100%;
 }
 @font-face {
   font-family: Ubuntu;
