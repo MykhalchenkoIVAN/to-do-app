@@ -1,12 +1,15 @@
 'use script'
 
-let addToDo = document.getElementById('add_to_do');
-let listToDo = document.getElementById('list_to_do');
+const addToDo = document.getElementById('add_to_do');
+const listToDo = document.getElementById('list_to_do');
 const toDoList = document.querySelectorAll('.todo')
 const addButton = document.querySelectorAll('.add_button');
 const container = document.querySelector('.container');
+const button1 = document.getElementById('add_button_1');
 
 let idButton = 10;
+let counterNotes = 0;
+let counterDelete = 0;
 // Preloader function
 const preloaderFunction = window.onload = function () {
     let preloader = document.getElementById("preloader");
@@ -46,7 +49,7 @@ function createNote(title, text) {
 
     noteElement.classList.add('note');
     noteElement.innerHTML = `
-    <button class="add_button_note add_button" id="add_button_${idButton}">
+    <button class="add_button_note add_button" id="${idButton}">
     <img src="img/icon_plus.png" alt="" />
   </button>
     <div class="note_header">
@@ -72,8 +75,10 @@ function createNote(title, text) {
     let addButtonNote = noteElement.querySelector('.add_button_note');
 
 
+
     addButtonNote.onclick = function () {
         const element = createNote("Заголовок", "Ваш текст", idButton);
+        counterNotes = counterNotes + 1;
         for (let i = 0; i < toDoList.length; i++) {
             let idButtonClass = idButton - 1;
             toDoList[i].appendChild(element);
@@ -81,7 +86,6 @@ function createNote(title, text) {
                 addButtonNote.classList.add('display_none');
             }
 
-            console.log(idButtonClass);
         }
         idButton = idButton + 1;
 
@@ -111,6 +115,24 @@ function createNote(title, text) {
     // Function delete notes
     deleteBtn.addEventListener('click', (e) => {
         noteElement.remove();
+        counterNotes = counterNotes - 1;
+        counterDelete = counterDelete + 1;
+        if (counterNotes == 0) {
+            for (let i = 0; i < addButton.length; i++) {
+                addButton[i].classList.remove('display_none');
+
+            }
+        }
+        if ((Number(addButtonNote.id) + counterDelete) == idButton) {
+            console.log('click');
+            // for (let i = idButton; i > addButtonNote.id; i--) {
+            //     console.log(addButtonNote.id);
+
+            // }
+        }
+        console.log(addButtonNote.id);
+        console.log(idButton);
+        console.log(counterDelete);
     });
 
     titleInputElement.addEventListener('input', (e) => {
@@ -129,17 +151,17 @@ for (let i = 0; i < addButton.length; i++) {
     addButton[i].addEventListener('click', (e) => {
         const element = createNote("Заголовок", "Ваш текст", idButton);
         if (addButton[i].id === "add_button_0") {
+            addButton[i].classList.add('display_none');
             toDoList[i].appendChild(element);
 
         } else if (addButton[i].id === "add_button_1") {
             toDoList[i].appendChild(element);
             addButton[i].classList.add('display_none');
             idButton = idButton + 1;
-            console.log(idButton);
+            counterNotes = counterNotes + 1;
+            counterDelete = 0;
 
         }
-
-
     })
 };
 
