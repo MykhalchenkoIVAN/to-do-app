@@ -7,7 +7,8 @@ const addButton = document.querySelectorAll(".add_button")
 const container = document.querySelector(".container")
 const button1 = document.getElementById("add_button_1")
 
-let idButton = 10
+
+let idButton = 1
 let counterNotes = 0
 let counterDelete = 0
 // Preloader function
@@ -39,6 +40,7 @@ listToDo.onclick = function () {
 // }
 
 function createNote(title, text) {
+    const addButtonNoteDelete = document.querySelectorAll(".add_button_note")
     const noteElement = document.createElement("div")
 
     noteElement.classList.add("note")
@@ -66,27 +68,28 @@ function createNote(title, text) {
     const textElement = noteElement.querySelector("#note_text")
     const titleInputElement = noteElement.querySelector("#note_title_input")
     const textInputElement = noteElement.querySelector("#note_text_input")
-    let addButtonNote = noteElement.querySelector(".add_button_note")
+    const addButtonNote = noteElement.querySelector(".add_button_note")
+    let idButtonClass = 0;
 
     addButtonNote.onclick = function () {
         const element = createNote("Заголовок", "Ваш текст", idButton)
         counterNotes = counterNotes + 1
         for (let i = 0; i < toDoList.length; i++) {
-            let idButtonClass = idButton - 1
+            idButtonClass = idButton - 1
             toDoList[i].appendChild(element)
-            if (idButtonClass >= 10) {
-                addButtonNote.classList.add("display_none")
+            if (idButtonClass >= 0) {
+                addButtonNote.classList.add("display_none");
             }
         }
         idButton = idButton + 1
-    }
 
+
+    }
     // Function button edit notes
     editBtn.addEventListener("click", (e) => {
         const textarea = document.querySelector(".textarea_text")
         titleElement.classList.toggle("hidden")
         textElement.classList.toggle("hidden")
-
         titleInputElement.classList.toggle("hidden")
         textInputElement.classList.toggle("hidden")
 
@@ -94,30 +97,24 @@ function createNote(title, text) {
             if (this.scrollTop > 0) {
                 this.style.height = this.scrollHeight + "px"
             }
-            console.log("click text area")
         })
-        console.log(textarea)
+
     })
     // Function delete notes
     deleteBtn.addEventListener("click", (e) => {
-        noteElement.remove()
-        counterNotes = counterNotes - 1
-        counterDelete = counterDelete + 1
+        noteElement.remove();
+        counterNotes = counterNotes - 1;
+        counterDelete = counterDelete + 1;
         if (counterNotes == 0) {
             for (let i = 0; i < addButton.length; i++) {
                 addButton[i].classList.remove("display_none")
             }
         }
-        if (Number(addButtonNote.id) + counterDelete == idButton) {
-            console.log("click")
-            // for (let i = idButton; i > addButtonNote.id; i--) {
-            //     console.log(addButtonNote.id);
-
-            // }
+        if (addButtonNoteDelete.length > 0) {
+            let c = addButtonNoteDelete.length - 1;
+            addButtonNoteDelete[c].classList.remove("display_none");
         }
-        console.log(addButtonNote.id)
-        console.log(idButton)
-        console.log(counterDelete)
+
     })
 
     titleInputElement.addEventListener("input", (e) => {
@@ -126,16 +123,17 @@ function createNote(title, text) {
     textInputElement.addEventListener("input", (e) => {
         textElement.innerText = e.target.value
     })
-
     return noteElement
+
 }
 
 for (let i = 0; i < addButton.length; i++) {
     addButton[i].addEventListener("click", (e) => {
+        idButton = 0;
         const element = createNote("Заголовок", "Ваш текст", idButton)
         if (addButton[i].id === "add_button_0") {
-            addButton[i].classList.add("display_none")
-            toDoList[i].appendChild(element)
+            // addButton[i].classList.add("display_none")
+            // toDoList[i].appendChild(element)
         } else if (addButton[i].id === "add_button_1") {
             toDoList[i].appendChild(element)
             addButton[i].classList.add("display_none")
