@@ -175,8 +175,8 @@ textarea {
 #note_text {
   margin-bottom: 10px;
 }
-#note_text_input,
-#note_title_input {
+.note_title_input,
+.textarea_text {
   background: #244852;
   color: white;
   border: none;
@@ -184,7 +184,7 @@ textarea {
   font-size: 16px;
   min-height: 18px;
 }
-#note_text_input {
+.textarea_text {
   width: 100%;
 }
 #note_text {
