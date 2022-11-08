@@ -10,6 +10,8 @@ const button1 = document.getElementById("add_button_1");
 const calendar = document.querySelector(".calendar");
 const clBtnOk = document.querySelector(".clendar_btn_ok");
 const clBtnCncl = document.querySelector(".clendar_btn_cancel");
+const overlay = document.querySelector('.overlay')
+
 
 
 
@@ -108,6 +110,8 @@ function createNote(title, text) {
     for (let i = 0; i < editNoteClock.length; i++) {
         editNoteClock[i].addEventListener("click", (e) => {
             calendar.classList.remove("display_none");
+            calendar.classList.add("calendar_flex");
+            overlay.classList.remove("display_none");
             console.log("click edit clock");
             console.log(calendar);
         })
