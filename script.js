@@ -1,24 +1,18 @@
 "use script"
 
-const addToDo = document.getElementById("add_to_do");
-const listToDo = document.getElementById("list_to_do");
-const toDoList = document.querySelectorAll(".todo");
-const toDoList0 = document.querySelectorAll(".todo0");
-const addButton = document.querySelectorAll(".add_button");
-const container = document.querySelector(".container");
-const button1 = document.getElementById("add_button_1");
-const calendar = document.querySelector(".calendar");
-const clBtnOk = document.querySelector(".clendar_btn_ok");
-const clBtnCncl = document.querySelector(".clendar_btn_cancel");
-const overlay = document.querySelector('.overlay')
+const addToDo = document.getElementById("add_to_do")
+const listToDo = document.getElementById("list_to_do")
+const toDoList = document.querySelectorAll(".todo")
+const toDoList0 = document.querySelectorAll(".todo0")
+const addButton = document.querySelectorAll(".add_button")
+const container = document.querySelector(".container")
+const button1 = document.getElementById("add_button_1")
+const calendarWrapper = document.querySelector(".calendar_wrapper")
+const clBtnOk = document.querySelector(".clendar_btn_ok")
+const clBtnCncl = document.querySelector(".clendar_btn_cancel")
+const overlay = document.querySelector(".overlay")
 
-
-
-
-
-
-
-const rootElement = document.documentElement;
+const rootElement = document.documentElement
 
 let idButton = 0
 let counterNotes = 0
@@ -29,25 +23,24 @@ let buttonArray = []
 const preloaderFunction = (window.onload = function () {
     let preloader = document.getElementById("preloader")
     const func = () => {
-        container.classList.remove("display_none");
-        container.classList.add("container_flex");
+        container.classList.remove("display_none")
+        container.classList.add("container_flex")
     }
     setTimeout(func, 3 * 1000)
 })
 
 addToDo.onclick = function () {
-    listToDo.classList.add("z_index");
-    addToDo.classList.remove("z_index");
+    listToDo.classList.add("z_index")
+    addToDo.classList.remove("z_index")
 }
 listToDo.onclick = function () {
-    listToDo.classList.remove("z_index");
-    addToDo.classList.add("z_index");
+    listToDo.classList.remove("z_index")
+    addToDo.classList.add("z_index")
 }
 
-
 function createNote(title, text) {
-    const noteElement = document.createElement("div");
-    noteElement.classList.add("note");
+    const noteElement = document.createElement("div")
+    noteElement.classList.add("note")
     noteElement.innerHTML = `
     <button class="add_button_note add_button" id="${idButton}">
     <img src="img/icon_plus.png" alt="" />
@@ -69,16 +62,15 @@ function createNote(title, text) {
 
     `
 
-    const editBtn = noteElement.querySelectorAll(".note_edit");
-    const deleteBtn = noteElement.querySelectorAll(".note_delete");
-    const titleElement = noteElement.querySelector("#note_title");
-    const textElement = noteElement.querySelector("#note_text");
-    const titleInputElement = noteElement.querySelector("#note_title_input");
-    const textInputElement = noteElement.querySelectorAll(".textarea_text");
-    const addButtonNote = noteElement.querySelectorAll(".add_button_note");
-    const addButtonNoteDelete = noteElement.querySelector(".add_button_note");
-    const editNoteClock = noteElement.querySelectorAll(".note_edit_clock");
-
+    const editBtn = noteElement.querySelectorAll(".note_edit")
+    const deleteBtn = noteElement.querySelectorAll(".note_delete")
+    const titleElement = noteElement.querySelector("#note_title")
+    const textElement = noteElement.querySelector("#note_text")
+    const titleInputElement = noteElement.querySelector("#note_title_input")
+    const textInputElement = noteElement.querySelectorAll(".textarea_text")
+    const addButtonNote = noteElement.querySelectorAll(".add_button_note")
+    const addButtonNoteDelete = noteElement.querySelector(".add_button_note")
+    const editNoteClock = noteElement.querySelectorAll(".note_edit_clock")
 
     // functions of the button for adding a new note
     for (let i = 0; i < addButtonNote.length; i++) {
@@ -86,7 +78,6 @@ function createNote(title, text) {
             const element = createNote("Заголовок", "Ваш текст", idButton)
             for (let i = 0; i < toDoList.length; i++) {
                 toDoList[i].appendChild(element)
-
             }
             addButtonNote[i].classList.add("display_none")
         })
@@ -94,11 +85,10 @@ function createNote(title, text) {
     // functions of the edit button
     for (let i = 0; i < editBtn.length; i++) {
         editBtn[i].addEventListener("click", function (e) {
-            titleElement.classList.toggle("hidden");
-            textElement.classList.toggle("hidden");
-            titleInputElement.classList.toggle("hidden");
-            textInputElement[i].classList.toggle("hidden");
-
+            titleElement.classList.toggle("hidden")
+            textElement.classList.toggle("hidden")
+            titleInputElement.classList.toggle("hidden")
+            textInputElement[i].classList.toggle("hidden")
             textInputElement[i].addEventListener("keyup", function () {
                 if (this.scrollTop > 0) {
                     this.style.height = this.scrollHeight + "px"
@@ -109,11 +99,12 @@ function createNote(title, text) {
     // Funcktion edit target time
     for (let i = 0; i < editNoteClock.length; i++) {
         editNoteClock[i].addEventListener("click", (e) => {
-            calendar.classList.remove("display_none");
-            calendar.classList.add("calendar_flex");
-            overlay.classList.remove("display_none");
-            console.log("click edit clock");
-            console.log(calendar);
+            calendarWrapper.classList.remove("display_none")
+            calendarWrapper.classList.add("calendar_flex")
+            overlay.classList.remove("display_none")
+            generateTimeHours()
+            generateTimeMinute()
+            console.log("click edit clock")
         })
     }
     // Function delete notes
@@ -122,7 +113,7 @@ function createNote(title, text) {
             noteElement.remove()
             counterNotes = counterNotes - 1
             counterDelete = counterDelete + 1
-            buttonArray.pop();
+            buttonArray.pop()
             let l = buttonArray[buttonArray.length - 1]
             if (buttonArray.length > 0) {
                 l.classList.remove("display_none")
@@ -166,11 +157,147 @@ for (let i = 0; i < addButton.length; i++) {
     })
 }
 
-// calendar functions 
+// calendar functions
+
 clBtnOk.addEventListener("click", (e) => {
-    calendar.classList.add("display_none");
+    calendarWrapper.classList.add("display_none")
+    calendarWrapper.classList.remove("calendar_flex")
+    overlay.classList.add("display_none")
 })
 clBtnCncl.addEventListener("click", (e) => {
-    calendar.classList.add("display_none");
-    console.log("click cncl");
+    calendarWrapper.classList.add("display_none")
+    calendarWrapper.classList.remove("calendar_flex")
+    overlay.classList.add("display_none")
+    console.log("click cncl")
 })
+
+//
+const isLeapYear = (year) => {
+    return (
+        (year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0) ||
+        (year % 100 === 0 && year % 400 === 0)
+    )
+}
+const getFebDays = (year) => {
+    return isLeapYear(year) ? 29 : 28
+}
+let calendar = document.querySelector(".calendar")
+const month_names = [
+    "Січень",
+    "Лютий",
+    "Березень",
+    "Квітень",
+    "Травень",
+    "Червень",
+    "Липень",
+    "Серпень",
+    "Вересень",
+    "Жовтень",
+    "Листопад",
+    "Грудень",
+]
+let monthPicker = document.querySelector("#month_picker")
+
+monthPicker.onclick = () => {
+    monthList.classList.remove("hideonce")
+    monthList.classList.remove("hide")
+    monthList.classList.add("show")
+}
+
+const generateCalendar = (month, year) => {
+    let calendar_days = document.querySelector(".calendar_days")
+    calendar_days.innerHTML = ""
+    let calendar_header_year = document.querySelector("#year")
+    let days_of_month = [
+        31,
+        getFebDays(year),
+        31,
+        30,
+        31,
+        30,
+        31,
+        31,
+        30,
+        31,
+        30,
+        31,
+    ]
+
+    let currentDate = new Date()
+
+    monthPicker.innerHTML = month_names[month]
+
+    calendar_header_year.innerHTML = year
+
+    let first_day = new Date(year, month)
+
+    for (let i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
+        let day = document.createElement("div")
+
+        if (i >= first_day.getDay()) {
+            day.innerHTML = i - first_day.getDay() + 1
+
+            if (
+                i - first_day.getDay() + 1 === currentDate.getDate() &&
+                year === currentDate.getFullYear() &&
+                month === currentDate.getMonth()
+            ) {
+                day.classList.add("current_date")
+            }
+        }
+        calendar_days.appendChild(day)
+    }
+}
+
+let monthList = calendar.querySelector(".month_list")
+month_names.forEach((e, index) => {
+    let month = document.createElement("div")
+    month.innerHTML = `<div>${e}</div>`
+
+    monthList.append(month)
+    month.onclick = () => {
+        currentMonth.value = index
+        generateCalendar(currentMonth.value, currentYear.value)
+        monthList.classList.replace("show", "hide")
+    }
+})
+    ; (function () {
+        monthList.classList.add("hideonce")
+    })()
+document.querySelector("#pre-year").onclick = () => {
+    --currentYear.value
+    generateCalendar(currentMonth.value, currentYear.value)
+}
+document.querySelector("#next-year").onclick = () => {
+    ++currentYear.value
+    generateCalendar(currentMonth.value, currentYear.value)
+}
+
+let currentDate = new Date()
+let currentMonth = { value: currentDate.getMonth() }
+let currentYear = { value: currentDate.getFullYear() }
+generateCalendar(currentMonth.value, currentYear.value)
+
+// function generate time
+const generateTimeHours = () => {
+    let hours = document.querySelector(".hours")
+    let number = 0
+    for (let i = 0; i < 24; i++) {
+        let createHours = document.createElement("div")
+        createHours.innerHTML = `${number}`
+        createHours.classList.add("hours_class")
+        hours.appendChild(createHours)
+        number++
+    }
+}
+const generateTimeMinute = () => {
+    let minute = document.querySelector(".minute")
+    let number = 0
+    for (let i = 0; i < 60; i++) {
+        let createHours = document.createElement("div")
+        createHours.innerHTML = `${number}`
+        createHours.classList.add("hours_class")
+        minute.appendChild(createHours)
+        number++
+    }
+}
