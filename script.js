@@ -232,7 +232,8 @@ const generateCalendar = (month, year) => {
     let first_day = new Date(year, month)
 
     for (let i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
-        let day = document.createElement("div")
+        let day = document.createElement("div");
+        day.classList.add("target_day")
 
         if (i >= first_day.getDay()) {
             day.innerHTML = i - first_day.getDay() + 1
@@ -247,6 +248,16 @@ const generateCalendar = (month, year) => {
         }
         calendar_days.appendChild(day)
     }
+
+    const targetDay = document.querySelectorAll(".target_day");
+    console.log(targetDay);
+    for (let i = 0; i < targetDay.length; i++) {
+        targetDay[i].addEventListener("click", function () {
+            console.log(targetDay[i].textContent);
+        })
+    }
+
+
 }
 
 let monthList = calendar.querySelector(".month_list")
@@ -272,7 +283,6 @@ document.querySelector("#next-year").onclick = () => {
     ++currentYear.value
     generateCalendar(currentMonth.value, currentYear.value)
 }
-
 let currentDate = new Date()
 let currentMonth = { value: currentDate.getMonth() }
 let currentYear = { value: currentDate.getFullYear() }
