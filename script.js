@@ -99,12 +99,12 @@ function createNote(title, text) {
     // Funcktion edit target time
     for (let i = 0; i < editNoteClock.length; i++) {
         editNoteClock[i].addEventListener("click", (e) => {
-            calendarWrapper.classList.remove("display_none")
-            calendarWrapper.classList.add("calendar_flex")
-            overlay.classList.remove("display_none")
-            generateTimeHours()
-            generateTimeMinute()
-            console.log("click edit clock")
+            calendarWrapper.classList.remove("display_none");
+            calendarWrapper.classList.add("calendar_flex");
+            overlay.classList.remove("display_none");
+
+            let hour = document.querySelectorAll(".hour_class");
+
         })
     }
     // Function delete notes
@@ -250,7 +250,6 @@ const generateCalendar = (month, year) => {
     }
 
     const targetDay = document.querySelectorAll(".target_day");
-    console.log(targetDay);
     for (let i = 0; i < targetDay.length; i++) {
         targetDay[i].addEventListener("click", function () {
             console.log(targetDay[i].textContent);
@@ -289,25 +288,38 @@ let currentYear = { value: currentDate.getFullYear() }
 generateCalendar(currentMonth.value, currentYear.value)
 
 // function generate time
-const generateTimeHours = () => {
-    let hours = document.querySelector(".hours")
-    let number = 0
-    for (let i = 0; i < 24; i++) {
-        let createHours = document.createElement("div")
-        createHours.innerHTML = `${number}`
-        createHours.classList.add("hours_class")
-        hours.appendChild(createHours)
-        number++
-    }
+const hour = document.querySelector('.hour');
+const createHour = document.querySelector('.create_hour');
+const minute = document.querySelector('.minute');
+
+
+function createTime() {
+    const createDivTime = document.createElement("div");
+    createDivTime.classList.add("time_items")
+
 }
-const generateTimeMinute = () => {
-    let minute = document.querySelector(".minute")
-    let number = 0
-    for (let i = 0; i < 60; i++) {
-        let createHours = document.createElement("div")
-        createHours.innerHTML = `${number}`
-        createHours.classList.add("hours_class")
-        minute.appendChild(createHours)
-        number++
+
+
+
+hour.onclick = () => {
+    const timeItems = document.querySelectorAll('.time_items');
+    createHour.classList.add('calendar_flex')
+    createHour.classList.toggle('display_none')
+    if (timeItems.length == 0) {
+        for (let i = 0; i < 24; i++) {
+            const createDivTime = document.createElement("div");
+            createDivTime.innerHTML = i;
+            createDivTime.classList.add('time_items')
+            createHour.appendChild(createDivTime)
+        }
     }
+
+
+
+    console.log(timeItems);
 }
+
+minute.onclick = () => {
+
+}
+
