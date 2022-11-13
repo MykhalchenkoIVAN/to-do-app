@@ -22,6 +22,9 @@ const createMinute = document.querySelector('.create_minute');
 const createHour = document.querySelector('.create_hour');
 
 
+// const timeItems = document.querySelectorAll('.time_items_hour');
+
+
 
 
 
@@ -32,8 +35,10 @@ let counterDelete = 0;
 let globalDynamicEditBtnId = 0;
 
 let buttonArray = [];
-let editBtnArray = [];
 let clBtnOkArray = [];
+
+let timeItemsHourArray = [];
+let timeItemsMinuteArray = [];
 
 let targetTimeArray = [];
 let targetDayArray = [];
@@ -41,6 +46,12 @@ let targetMonthArray = [];
 let targetYearArray = [];
 let targetHourArray = [];
 let targetMinuteArray = [];
+
+
+document.ondragstart = noselect;
+document.onselectstart = noselect;
+document.oncontextmenu = noselect;
+function noselect() { return false; }
 
 
 // Preloader function
@@ -70,7 +81,7 @@ function createNote(title, text) {
     <img src="img/icon_plus.png" alt="" />
   </button>
     <div class="note_header">
-        <p id="note_title">${title}</p>
+        <p class="note_title" id="${idButton}">${title}</p>
         <textarea id="note_title_input" class="hidden note_title_input">${title}</textarea>
         <div class="note_action">
         <button class="note_edit" id="${idButton}"><img src="img/icon_edit.png" alt="edit"/>
@@ -103,16 +114,16 @@ function createNote(title, text) {
 
 
 
-    const editBtn = noteElement.querySelector(".note_edit");
+    const editBtn = noteElement.querySelectorAll(".note_edit");
+    const editNoteClock = noteElement.querySelectorAll(".note_edit_clock");
 
     const deleteBtn = noteElement.querySelectorAll(".note_delete");
-    const titleElement = noteElement.querySelector("#note_title");
+    const titleElement = noteElement.querySelectorAll(".note_title");
     const textElement = noteElement.querySelector("#note_text");
     const titleInputElement = noteElement.querySelector("#note_title_input");
     const textInputElement = noteElement.querySelectorAll(".textarea_text");
     const addButtonNote = noteElement.querySelectorAll(".add_button_note");
     const addButtonNoteDelete = noteElement.querySelector(".add_button_note");
-    const editNoteClock = noteElement.querySelectorAll(".note_edit_clock");
 
 
 
@@ -127,7 +138,6 @@ function createNote(title, text) {
 
     targetDay.id = idButton;
 
-    editBtnArray.push(editBtn);
 
     // functions of the button for adding a new note
     for (let i = 0; i < addButtonNote.length; i++) {
@@ -143,20 +153,17 @@ function createNote(title, text) {
 
     }
     // functions of the edit button
-    for (let i = 0; i < editBtnArray.length; i++) {
-        editBtnArray[i].addEventListener("click", function (e) {
-            console.log("click");
-
-
-            // titleElement[i].classList.toggle("hidden")
-            // textElement.classList.toggle("hidden")
-            // titleInputElement.classList.toggle("hidden")
-            // textInputElement[i].classList.toggle("hidden")
-            // textInputElement[i].addEventListener("keyup", function () {
-            //     if (this.scrollTop > 0) {
-            //         this.style.height = this.scrollHeight + "px"
-            //     }
-            // })
+    for (let i = 0; i < editBtn.length; i++) {
+        editBtn[i].addEventListener("click", function (e) {
+            titleElement[i].classList.toggle("hidden")
+            textElement.classList.toggle("hidden")
+            titleInputElement.classList.toggle("hidden")
+            textInputElement[i].classList.toggle("hidden")
+            textInputElement[i].addEventListener("keyup", function () {
+                if (this.scrollTop > 0) {
+                    this.style.height = this.scrollHeight + "px"
+                }
+            })
         })
 
     }
@@ -168,10 +175,6 @@ function createNote(title, text) {
             overlay.classList.remove("display_none");
             globalDynamicEditBtnId = editNoteClock[i].id;
             globalAddButtonNoteId = editNoteClock[i].id
-            // console.log(e.target);
-            // console.log(typeof e.target);
-            // console.log(editNoteClock[i].id);
-
         })
 
     }
@@ -180,13 +183,10 @@ function createNote(title, text) {
     const minute = document.querySelector('.minute');
 
 
-    let counterHourItems = 0;
-    let counterMinuteItems = 0;
 
     hour.onclick = () => {
 
-
-        if (counterHourItems == 0) {
+        if (timeItemsHourArray.length == 0) {
             for (let i = 0; i < 24; i++) {
                 const createHourItems = document.createElement('div');
                 createHourItems.innerHTML = i;
@@ -198,12 +198,10 @@ function createNote(title, text) {
 
         createHour.classList.add("calendar_flex");
         hour.style.color = "black";
-        overlay.classList.add("overlay_index")
+        overlay.classList.add("overlay_index");
         const timeItems = document.querySelectorAll('.time_items_hour');
 
-        counterHourItems = timeItems;
-
-
+        timeItemsHourArray = timeItems;
 
 
         for (let i = 0; i < timeItems.length; i++) {
@@ -217,8 +215,10 @@ function createNote(title, text) {
         }
 
     }
+
+
     minute.onclick = () => {
-        if (counterMinuteItems == 0) {
+        if (timeItemsMinuteArray.length == 0) {
             for (let i = 0; i < 60; i++) {
                 const createHourItems = document.createElement('div');
                 createHourItems.innerHTML = i;
@@ -233,8 +233,7 @@ function createNote(title, text) {
         minute.style.color = "black";
         const timeItems = document.querySelectorAll('.time_items_minute');
 
-        counterMinuteItems = timeItems;
-
+        timeItemsMinuteArray = timeItems;
 
 
         for (let i = 0; i < timeItems.length; i++) {
@@ -284,6 +283,8 @@ function createNote(title, text) {
 
     clBtnOkArray.push(clBtnOk.id);
 
+
+
     targetTimeArray.push(targetTime);
     targetDayArray.push(targetDay);
     targetMonthArray.push(targetMonth);
@@ -323,7 +324,8 @@ clBtnOk.onclick = (e) => {
     const monthDivValue = document.querySelector('.month_picker').textContent;
     const yearhDivValue = document.querySelector('.year_class').textContent;
 
-
+    console.log(timeItemsHourArray);
+    console.log(timeItemsMinuteArray);
 
     for (let i = globalDynamicEditBtnId; i < targetTimeArray.length; i++) {
         if (targetTimeArray[i].id == globalDynamicEditBtnId) {
@@ -334,10 +336,7 @@ clBtnOk.onclick = (e) => {
                 targetMonthArray[i].textContent = monthDivValue;
                 targetYearArray[i].textContent = yearhDivValue;
                 targetHourArray[i].textContent = hourDivValue;
-                targetMinuteArray[i].textContent = minuteDivValue
-                console.log(targetDayArray[i]);
-                console.log(dayDivValue);
-                console.log("click");
+                targetMinuteArray[i].textContent = minuteDivValue;
             }
         }
 

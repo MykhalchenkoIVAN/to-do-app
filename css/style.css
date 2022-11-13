@@ -1,15 +1,10 @@
 :root {
   --color_one: #abb494;
-  --dark-text: #f8fbff;
-  --light-body: #f3f8fe;
-  --light-main: #fdfdfd;
-  --light-second: #c3c2c8;
-  --light-hover: #f0f0f0;
+  --color_bg_note: #c3f54e13;
   --light-text: #151426;
   --light-btn: #9796f0;
   --white: #fff;
   --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  --font-family: consolas;
 }
 *,
 *::before {
@@ -170,6 +165,8 @@ textarea {
 .note {
   width: 100%;
   margin-top: 10px;
+  background-color: var(--color_bg_note);
+  border-radius: 10px;
 }
 .note_header {
   display: flex;
@@ -239,6 +236,7 @@ textarea {
   z-index: 10;
   position: relative;
   border-radius: 10px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .calendar {
   width: 100%;
@@ -247,6 +245,7 @@ textarea {
   border-radius: 10px;
   overflow: hidden;
   padding: 3px 3px 0px 3px;
+
 }
 .calendar_flex {
   display: flex;
@@ -326,11 +325,10 @@ textarea {
   padding: 5px 10px;
   border-radius: 10px;
   cursor: pointer;
+
 }
 .month_picker:hover {
-  background-color: var(--color-hover);
-}
-.month_picker:hover {
+  background-color: rgba(192, 192, 192, 0.767);
   color: var(--color-txt);
 }
 .year_picker {
@@ -346,7 +344,7 @@ textarea {
   margin: 0px 10px;
   cursor: pointer;
 }
-.year_change:hover {
+.year_change:active {
   background-color: var(--light-btn);
   transition: all 0.2s ease-in-out;
   transform: scale(1.12);
@@ -368,7 +366,7 @@ textarea {
 .month_list {
   position: relative;
   left: 0;
-  top: -192px;
+  top: -217px;
   background-color: #ebebeb;
   color: var(--light-text);
   display: grid;
@@ -387,7 +385,7 @@ textarea {
   padding: 10px;
   cursor: pointer;
 }
-.month_list > div > div:hover {
+.month_list > div > div:active {
   background-color: var(--light-btn);
   color: var(--dark-text);
   transform: scale(0.9);
