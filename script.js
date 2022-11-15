@@ -6,27 +6,13 @@ const toDoList = document.querySelectorAll(".todo");
 const toDoList0 = document.querySelectorAll(".todo0");
 const addButton = document.querySelectorAll(".add_button");
 const container = document.querySelector(".container");
-const button1 = document.getElementById("add_button_1");
 const calendarWrapper = document.querySelector(".calendar_wrapper");
 const clBtnCncl = document.querySelector(".clendar_btn_cancel");
 const clBtnOk = document.querySelector(".clendar_btn_ok");
 const overlay = document.querySelector(".overlay");
 
-
-
-
-
-const rootElement = document.documentElement
-
 const createMinute = document.querySelector('.create_minute');
 const createHour = document.querySelector('.create_hour');
-
-
-// const timeItems = document.querySelectorAll('.time_items_hour');
-
-
-
-
 
 let idButton = 0;
 let counterNotes = 0;
@@ -35,7 +21,6 @@ let counterDelete = 0;
 let globalDynamicEditBtnId = 0;
 
 let buttonArray = [];
-let clBtnOkArray = [];
 
 let timeItemsHourArray = [];
 let timeItemsMinuteArray = [];
@@ -47,35 +32,34 @@ let targetYearArray = [];
 let targetHourArray = [];
 let targetMinuteArray = [];
 
-
+// function that prohibits copying
 document.ondragstart = noselect;
 document.onselectstart = noselect;
 document.oncontextmenu = noselect;
-function noselect() { return false; }
-
+function noselect() { return false; };
 
 // Preloader function
 const preloaderFunction = (window.onload = function () {
-    let preloader = document.getElementById("preloader")
+    let preloader = document.getElementById("preloader");
     const func = () => {
         container.classList.remove("display_none");
         container.classList.add("container_flex");
     }
-    setTimeout(func, 3 * 1000)
+    setTimeout(func, 1 * 1000);
 })
 
 addToDo.onclick = function () {
-    listToDo.classList.add("z_index")
-    addToDo.classList.remove("z_index")
+    listToDo.classList.add("z_index");
+    addToDo.classList.remove("z_index");
 }
 listToDo.onclick = function () {
-    listToDo.classList.remove("z_index")
-    addToDo.classList.add("z_index")
+    listToDo.classList.remove("z_index");
+    addToDo.classList.add("z_index");
 }
 
 function createNote(title, text) {
-    const noteElement = document.createElement("div")
-    noteElement.classList.add("note")
+    const noteElement = document.createElement("div");
+    noteElement.classList.add("note");
     noteElement.innerHTML = `
     <button class="add_button_note add_button" id="${idButton}">
     <img src="img/icon_plus.png" alt="" />
@@ -111,9 +95,6 @@ function createNote(title, text) {
     `
     clBtnOk.id = idButton;
 
-
-
-
     const editBtn = noteElement.querySelectorAll(".note_edit");
     const editNoteClock = noteElement.querySelectorAll(".note_edit_clock");
 
@@ -125,9 +106,7 @@ function createNote(title, text) {
     const addButtonNote = noteElement.querySelectorAll(".add_button_note");
     const addButtonNoteDelete = noteElement.querySelector(".add_button_note");
 
-
-
-
+    const noteTargetTimeDiv = noteElement.querySelector('.note_target_time ');
 
     const targetTime = noteElement.querySelector(".note_target_time");
     const targetDay = noteElement.querySelector(".target_days");
@@ -138,7 +117,6 @@ function createNote(title, text) {
 
     targetDay.id = idButton;
 
-
     // functions of the button for adding a new note
     for (let i = 0; i < addButtonNote.length; i++) {
         addButtonNote[i].addEventListener("click", function () {
@@ -148,7 +126,7 @@ function createNote(title, text) {
             }
 
 
-            addButtonNote[i].classList.add("display_none")
+            addButtonNote[i].classList.add("display_none");
         })
 
     }
@@ -175,14 +153,20 @@ function createNote(title, text) {
             overlay.classList.remove("display_none");
             globalDynamicEditBtnId = editNoteClock[i].id;
             globalAddButtonNoteId = editNoteClock[i].id
+            if (noteTargetTimeDiv.className == "note_target_time display_none" && editNoteClock[i].id == noteTargetTimeDiv.id) {
+                hour.innerHTML = "год"
+                hour.style.color = "rgba(192, 192, 192, 0.521)";
+                minute.innerHTML = "хв";
+                minute.style.color = "rgba(192, 192, 192, 0.521)";
+            }
         })
 
     }
     // function generate time
     const hour = document.querySelector('.hour');
     const minute = document.querySelector('.minute');
-
-
+    const monthDiv = document.querySelector('.month_picker');
+    const yearhDiv = document.querySelector('.year_class').textContent;
 
     hour.onclick = () => {
 
@@ -216,7 +200,6 @@ function createNote(title, text) {
 
     }
 
-
     minute.onclick = () => {
         if (timeItemsMinuteArray.length == 0) {
             for (let i = 0; i < 60; i++) {
@@ -247,9 +230,6 @@ function createNote(title, text) {
         }
     }
 
-
-
-
     // Function delete notes
     for (let i = 0; i < deleteBtn.length; i++) {
         deleteBtn[i].addEventListener("click", (e) => {
@@ -260,7 +240,6 @@ function createNote(title, text) {
             let l = buttonArray[buttonArray.length - 1]
             if (buttonArray.length > 0) {
                 l.classList.remove("display_none");
-                console.log("click");
             }
             if (counterNotes == 0) {
                 for (let i = 0; i < addButton.length; i++) {
@@ -281,18 +260,12 @@ function createNote(title, text) {
 
     buttonArray.push(addButtonNoteDelete);
 
-    clBtnOkArray.push(clBtnOk.id);
-
-
-
     targetTimeArray.push(targetTime);
     targetDayArray.push(targetDay);
     targetMonthArray.push(targetMonth);
     targetYearArray.push(targetYear);
     targetHourArray.push(targetHour);
     targetMinuteArray.push(targetMinute);
-
-
 
     idButton++;
     counterNotes = counterNotes + 1;
@@ -313,7 +286,6 @@ for (let i = 0; i < addButton.length; i++) {
     })
 }
 
-
 // calendar functions
 let dayDivValue = 0;
 let globalAddButtonNoteId = 0;
@@ -323,9 +295,6 @@ clBtnOk.onclick = (e) => {
     const minuteDivValue = document.querySelector('.minute').textContent;
     const monthDivValue = document.querySelector('.month_picker').textContent;
     const yearhDivValue = document.querySelector('.year_class').textContent;
-
-    console.log(timeItemsHourArray);
-    console.log(timeItemsMinuteArray);
 
     for (let i = globalDynamicEditBtnId; i < targetTimeArray.length; i++) {
         if (targetTimeArray[i].id == globalDynamicEditBtnId) {
@@ -338,18 +307,16 @@ clBtnOk.onclick = (e) => {
                 targetHourArray[i].textContent = hourDivValue;
                 targetMinuteArray[i].textContent = minuteDivValue;
             }
+
         }
-
-
     }
     calendarWrapper.classList.add("display_none");
     calendarWrapper.classList.remove("calendar_flex");
     overlay.classList.add("display_none");
+
+
+
 }
-
-
-
-
 
 clBtnCncl.addEventListener("click", () => {
     calendarWrapper.classList.add("display_none");
@@ -371,7 +338,6 @@ overlay.onclick = () => {
         createHour.classList.add('display_none');
     }
 }
-
 
 //
 const isLeapYear = (year) => {
@@ -453,16 +419,10 @@ const generateCalendar = (month, year) => {
     const targetDay = document.querySelectorAll(".target_day");
     for (let i = 0; i < targetDay.length; i++) {
         targetDay[i].addEventListener("click", function () {
-            console.log(targetDay[i].textContent);
             let a = targetDay[i].textContent
             dayDivValue = a;
-            console.log(a);
         })
     }
-
-
-
-
 }
 
 let monthList = calendar.querySelector(".month_list")
